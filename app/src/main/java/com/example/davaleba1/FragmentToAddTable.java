@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,10 +22,11 @@ import java.util.ArrayList;
 public class FragmentToAddTable extends Fragment {
     Button GoToMain;
     Button AddTableName;
+    Button CrtTbl;
+    Button Ref;
     Button AddColumn;
     EditText TableNameInput;
     EditText ColumnNameInput;
-
     TextView TableName;
     TextView ColmnNm;
     TextView ColumnType;
@@ -33,6 +35,7 @@ public class FragmentToAddTable extends Fragment {
 
     ArrayList<String> ColumnsName = new ArrayList<>();
     ArrayList<String> ColumnsType = new ArrayList<>();
+    BaseHelper dbHlp = new BaseHelper();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +57,8 @@ public class FragmentToAddTable extends Fragment {
         ColumnType = view.findViewById(R.id.ColmnTp);
         ColumnList = view.findViewById(R.id.ColumnList);
         ColumnTpList = view.findViewById(R.id.ColumnTpList);
+        CrtTbl = view.findViewById(R.id.CrtTbl);
+        Ref = view.findViewById(R.id.RefButton);
 
         GoToMain.setOnClickListener(v->{
             new MaterialAlertDialogBuilder(requireContext())
@@ -99,6 +104,35 @@ public class FragmentToAddTable extends Fragment {
 
 
             return true;
+        });
+        CrtTbl.setOnClickListener(v->{
+            if(ColumnsName.size() > 0 && !TableName.getText().toString().isEmpty()){
+                Toast.makeText(getActivity(), "Create Table", Toast.LENGTH_SHORT).show();
+                dbHlp.Insert(TableName.getText().toString(),ColumnsName);
+            }else{
+                Toast.makeText(getActivity(), "Fill All Fields", Toast.LENGTH_SHORT).show();
+            }
+            CrtTbl.setEnabled(false);
+        });
+        Ref.setOnClickListener(v->{
+            new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Warning")
+                    .setMessage("Are you sure you want to refresh?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        CrtTbl.setEnabled(true);
+                        ColumnsName.clear();
+                        ColumnsType.clear();
+                        TableName.setText("");
+                        ColmnNm.setText("");
+                        ColumnType.setText("");
+                        ColumnList.clearChoices();
+                        ColumnTpList.clearChoices();
+                        SetAdapter();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .show();
         });
     }
     void SetAdapter(){
