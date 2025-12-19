@@ -4,17 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
 public class FirstFrmg extends Fragment {
 
-    Button AddButton;
-    Button ShowButton;
-    Button DelButton;
+    Button AddButton,ShowButton,DelButton,ShowAllTables;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.firstfrgmlt, container, false);
@@ -27,6 +28,8 @@ public class FirstFrmg extends Fragment {
         AddButton = view.findViewById(R.id.AddButton);
         ShowButton = view.findViewById(R.id.ShowButton);
         DelButton = view.findViewById(R.id.DelButton);
+        ShowAllTables = view.findViewById(R.id.ShowAllTables);
+
 
         AddButton.setOnClickListener(v->{
             ((MainActivity)getActivity()).ChangeFragment(new FragmentToAddTable());
@@ -38,7 +41,9 @@ public class FirstFrmg extends Fragment {
 //        DelButton.setOnClickListener(v->{
 //            ((MainActivity)getActivity()).ChangeFragment(new FragmentToDeleteTable());
 //        });
-
+        ShowAllTables.setOnClickListener(v->{
+            ((MainActivity)getActivity()).ChangeFragment(new ShowTBL());
+        });
     }
 
 }

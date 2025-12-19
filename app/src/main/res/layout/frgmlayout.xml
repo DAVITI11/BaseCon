@@ -2,16 +2,15 @@
 
 <!--      Add Fragment Layout     -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
 
   <EditText android:id="@+id/TableNameInput" android:layout_width="match_parent" android:layout_height="50dp" android:hint="Enter Table Name" android:textSize="20dp"></EditText>
 
   <Button android:id="@+id/AddTableName" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Table Name"></Button>
 
   <EditText android:id="@+id/ColumnName" android:layout_width="match_parent" android:layout_height="50dp" android:hint="Enter Column Name"></EditText>
+
+  <Spinner android:id="@+id/spinner" android:layout_width="match_parent" android:layout_height="50dp"></Spinner>
 
   <Button android:id="@+id/AddColumn" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Column"></Button>
 
@@ -28,8 +27,6 @@
     <TextView android:id="@+id/ColmnTp" android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1" android:textAlignment="center"></TextView>
   </LinearLayout>
 
-  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="2">
-    <ListView android:id="@+id/ColumnList" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:textAlignment="center"></ListView>
-    <ListView android:id="@+id/ColumnTpList" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:textAlignment="center"></ListView>
-  </LinearLayout>
+  <ListView android:id="@+id/ListV" android:layout_width="match_parent" android:layout_height="wrap_content"></ListView>
+
 </LinearLayout>

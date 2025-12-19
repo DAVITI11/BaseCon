@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button android:id="@+id/AddButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Table" android:layout_marginTop="250dp"></Button>
+    <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="Main Activity" android:textSize="30dp" android:textAlignment="center" android:textColor="#ff0000"></TextView>
+
+    <Button android:id="@+id/AddButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Table" android:layout_marginTop="200dp"></Button>
 
     <Button android:id="@+id/ShowButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Select Table"></Button>
 
     <Button android:id="@+id/DelButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Delete Table"></Button>
+
+    <Button android:id="@+id/ShowAllTables" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Show All Tables"></Button>
 
 </LinearLayout>

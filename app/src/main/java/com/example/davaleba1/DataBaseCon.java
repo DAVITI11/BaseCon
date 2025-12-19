@@ -2,6 +2,7 @@ package com.example.davaleba1;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -21,9 +22,6 @@ public class DataBaseCon extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    public void CreateTable(TableClass TBCL){
-
-    }
     public void SelectTable(String tableName){
 
     }
@@ -33,5 +31,35 @@ public class DataBaseCon extends SQLiteOpenHelper {
     public void UpdateTable(String tableName){
 
     }
-
+    public ArrayList<String>TablesName(){
+        ArrayList<String>Tables = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT name FROM sqlite_master WHERE type='table'";
+        Cursor cursor = db.rawQuery(sql,null);
+        if(cursor.moveToFirst()){
+            do{
+                Tables.add(cursor.getString(0));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return Tables;
+    }
+    public ArrayList<String>getColumns(String tableName){
+        ArrayList<String>Columns = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "PRAGMA table_info("+tableName+")";
+        Cursor cursor = db.rawQuery(sql,null);
+        if(cursor.moveToFirst()){
+            do{
+                Columns.add(cursor.getString(1));
+            }while(cursor
+                    .moveToNext());
+        }
+        cursor.close();
+        return Columns;
+    }
+    public void CreateTable(String sql){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(sql);
+    }
 }
