@@ -1,6 +1,8 @@
 package com.example.davaleba1;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,7 @@ public class FragmentToAddTable extends Fragment {
 
     ArrayList<String> ColumnsName = new ArrayList<>();
     ArrayList<String> ColumnsType = new ArrayList<>();
+    Boolean cnt=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class FragmentToAddTable extends Fragment {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -54,7 +58,14 @@ public class FragmentToAddTable extends Fragment {
         Ref = view.findViewById(R.id.RefButton);
         spinner = view.findViewById(R.id.spinner);
 
-        String[] ItemOfSpinner = new String[]{"Select Type","INTEGER PRIMARY KEY AUTOINCREMENT","TEXT","INTEGER","SMALLINT","BOOLEAN","REAL"};
+        ArrayList<String> ItemOfSpinner = new ArrayList<>();
+        ItemOfSpinner.add("Select Column Type");
+        ItemOfSpinner.add("INTEGER PRIMARY KEY AUTOINCREMENT");
+        ItemOfSpinner.add("TEXT");
+        ItemOfSpinner.add("INTEGER");
+        ItemOfSpinner.add("SMALLINT");
+        ItemOfSpinner.add("BOOLEAN");
+        ItemOfSpinner.add("REAL");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, ItemOfSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setSelection(0);
@@ -80,12 +91,27 @@ public class FragmentToAddTable extends Fragment {
         });
         AddColumn.setOnClickListener(v->{
             if(!ColumnNameInput.getText().toString().isEmpty() && spinner.getSelectedItemPosition()!=0){
-                ColmnNm.setText("Column Name");ColumnType.setText("Column Type");
-                ColumnsName.add(ColumnNameInput.getText().toString());
-                ColumnsType.add(spinner.getSelectedItem().toString());
-                spinner.setSelection(0);
-                ColumnNameInput.setText("");
-                SetAdapter();
+                if(ColumnsName.contains(ColumnNameInput.getText().toString())){
+                    new MaterialAlertDialogBuilder(requireContext())
+                            .setTitle("Warning")
+                            .setMessage("Column Name Already Exists")
+                            .setPositiveButton("Ok", (dialog, which) -> {
+                                dialog.dismiss();
+                            })
+                            .show();
+                }
+                else {
+                    if(spinner.getSelectedItem().toString().equals("INTEGER PRIMARY KEY AUTOINCREMENT")){
+                        ItemOfSpinner.remove("INTEGER PRIMARY KEY AUTOINCREMENT");
+                    }
+                    ColmnNm.setText("Column Name");
+                    ColumnType.setText("Column Type");
+                    ColumnsName.add(ColumnNameInput.getText().toString());
+                    ColumnsType.add(spinner.getSelectedItem().toString());
+                    spinner.setSelection(0);
+                    ColumnNameInput.setText("");
+                    SetAdapter();
+                }
             }
         });
         ListV.setOnItemLongClickListener((parent, v, position, id) -> {
@@ -107,7 +133,7 @@ public class FragmentToAddTable extends Fragment {
             if(!ColumnsName.isEmpty() && !TableName.getText().toString().isEmpty()){
                 CreateTable(TableName.getText().toString(),ColumnsName,ColumnsType);
                 Toast.makeText(getActivity(), "Create Table Successful", Toast.LENGTH_SHORT).show();
-                CrtTbl.setEnabled(false);
+                ClearEverything();
             }else{
                 Toast.makeText(getActivity(), "Fill All Fields", Toast.LENGTH_SHORT).show();
             }
@@ -117,18 +143,21 @@ public class FragmentToAddTable extends Fragment {
                     .setTitle("Warning")
                     .setMessage("Are you sure you want to refresh?")
                     .setPositiveButton("Yes", (dialog, which) -> {
-                        CrtTbl.setEnabled(true);ColumnsName.clear();
-                        ColumnsType.clear();TableName.setText("");
-                        ColmnNm.setText("");ColumnType.setText("");
-                        ColumnNameInput.setText("");TableNameInput.setText("");
-                        spinner.setSelection(0);
-                        SetAdapter();
+                        ClearEverything();
                     })
                     .setNegativeButton("No", (dialog, which) -> {
                         dialog.dismiss();
                     })
                     .show();
         });
+    }
+    void ClearEverything() {
+        ColumnsName.clear();
+        ColumnsType.clear();TableName.setText("");
+        ColmnNm.setText("");ColumnType.setText("");
+        ColumnNameInput.setText("");TableNameInput.setText("");
+        spinner.setSelection(0);
+        SetAdapter();
     }
     void SetAdapter(){
         TableRowAdpt adpt = new TableRowAdpt(getActivity(),ColumnsName,ColumnsType);

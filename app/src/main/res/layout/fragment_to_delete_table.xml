@@ -6,5 +6,11 @@
 
     <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="Page for Delete Table" android:textSize="30dp" android:textAlignment="center" android:textColor="#ff0000"></TextView>
 
+    <Button
+        android:id="@+id/GoToMainButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Go to Main Page"></Button>
+
     <ListView android:id="@+id/ListV" android:layout_width="match_parent" android:layout_height="wrap_content"></ListView>
 </LinearLayout>

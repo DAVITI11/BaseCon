@@ -27,10 +27,11 @@ public class DataBaseCon extends SQLiteOpenHelper {
     }
     public void DeleteTable(String tableName){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(tableName,null,null);
+        db.execSQL("DROP TABLE IF EXISTS "+tableName);
     }
-    public void UpdateTable(String tableName){
-
+    public void DeleteColumn(String tableName,String ColumnName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("ALTER TABLE "+tableName+" DROP COLUMN "+ColumnName);
     }
     public ArrayList<String>TablesName(){
         ArrayList<String>Tables = new ArrayList<>();
@@ -55,8 +56,7 @@ public class DataBaseCon extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do{
                 Columns.add(cursor.getString(1));
-            }while(cursor
-                    .moveToNext());
+            }while(cursor.moveToNext());
         }
         cursor.close();
         return Columns;

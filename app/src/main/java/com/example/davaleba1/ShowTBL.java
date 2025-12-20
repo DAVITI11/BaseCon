@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class ShowTBL extends Fragment {
     ArrayList<String>TbNm;
+    ArrayList<String>MainList;
     Button GoToMain;
     ListView ListV;
 
@@ -29,8 +30,24 @@ public class ShowTBL extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ListV = view.findViewById(R.id.ListV);
         GoToMain = view.findViewById(R.id.GoToMainButton);
+
+        MainList = new ArrayList<>();
         TbNm = ((MainActivity)getActivity()).SelectAllTable();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, TbNm);
+
+        for(int k = 0; k < TbNm.size(); k++) {
+            int temp=k+1;
+            MainList.add("Table  N : " + temp);
+            MainList.add(TbNm.get(k));
+            ArrayList<String> Columns = ((MainActivity)getActivity()).GetColumns(TbNm.get(k));
+            for(int i = 0; i < Columns.size(); i++) {
+                MainList.add("    --->    " + Columns.get(i));
+            }
+            if(k!=TbNm.size()-1)
+                MainList.add("");
+        }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, MainList);
         ListV.setAdapter(adapter);
         GoToMain.setOnClickListener(v->{
             new MaterialAlertDialogBuilder(requireContext())
