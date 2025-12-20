@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--      Add Fragment Layout     -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
 
   <EditText android:id="@+id/TableNameInput" android:layout_width="match_parent" android:layout_height="50dp" android:hint="Enter Table Name" android:textSize="20dp"></EditText>

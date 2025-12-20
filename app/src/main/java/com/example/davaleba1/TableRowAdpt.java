@@ -19,7 +19,6 @@ public class TableRowAdpt extends BaseAdapter {
         ColumnsType = clmnTp;
         this.context = context;
     }
-
     @Override
     public int getCount() {
         return ColumnsName.size();

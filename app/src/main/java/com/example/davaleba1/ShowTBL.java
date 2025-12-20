@@ -46,7 +46,6 @@ public class ShowTBL extends Fragment {
                 MainList.add("");
         }
 
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, MainList);
         ListV.setAdapter(adapter);
         GoToMain.setOnClickListener(v->{

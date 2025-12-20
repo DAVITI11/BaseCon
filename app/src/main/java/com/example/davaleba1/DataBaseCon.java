@@ -22,9 +22,7 @@ public class DataBaseCon extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    public void SelectTable(String tableName){
-
-    }
+    public void SelectTable(String tableName){}
     public void DeleteTable(String tableName){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS "+tableName);

@@ -36,7 +36,6 @@ public class FragmentToDeleteTable extends Fragment {
         ArrayAdapter<String>adpt = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,Tables);
         ListV.setAdapter(adpt);
 
-
         ListV.setOnItemLongClickListener((parent, v, position, id) ->{
             new MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Warning")

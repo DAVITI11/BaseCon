@@ -45,5 +45,4 @@ public class FirstFrmg extends Fragment {
             ((MainActivity)getActivity()).ChangeFragment(new ShowTBL());
         });
     }
-
 }

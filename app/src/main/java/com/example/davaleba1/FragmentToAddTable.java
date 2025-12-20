@@ -32,7 +32,6 @@ public class FragmentToAddTable extends Fragment {
 
     ArrayList<String> ColumnsName = new ArrayList<>();
     ArrayList<String> ColumnsType = new ArrayList<>();
-    Boolean cnt=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
