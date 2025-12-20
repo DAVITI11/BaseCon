@@ -1,6 +1,7 @@
 package com.example.davaleba1;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
-
+import android.content.Context;
 public class FragmentToAddTable extends Fragment {
     Button GoToMain,AddTableName,CrtTbl,Ref,AddColumn;
     EditText TableNameInput,ColumnNameInput;
@@ -29,7 +30,6 @@ public class FragmentToAddTable extends Fragment {
 
     ArrayList<String> ColumnsName = new ArrayList<>();
     ArrayList<String> ColumnsType = new ArrayList<>();
-    DataBaseCon db = new DataBaseCon(getActivity(),"DataBase.db",null,1);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class FragmentToAddTable extends Fragment {
         Ref = view.findViewById(R.id.RefButton);
         spinner = view.findViewById(R.id.spinner);
 
-        String[] ItemOfSpinner = new String[]{"Select Type","TEXT","INTEGER","SMALLINT","BOOLEAN","REAL"};
+        String[] ItemOfSpinner = new String[]{"Select Type","INTEGER PRIMARY KEY AUTOINCREMENT","TEXT","INTEGER","SMALLINT","BOOLEAN","REAL"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, ItemOfSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setSelection(0);
@@ -74,16 +74,16 @@ public class FragmentToAddTable extends Fragment {
         });
         AddTableName.setOnClickListener(v->{
             if(!TableNameInput.getText().toString().isEmpty()){
-                TableName.setText("Table Name is : " + TableNameInput.getText().toString());
+                TableName.setText(TableNameInput.getText().toString());
                 TableNameInput.setText("");
             }
         });
         AddColumn.setOnClickListener(v->{
-            String selectedValue = spinner.getSelectedItem().toString();
-            if(!ColumnNameInput.getText().toString().isEmpty() && !selectedValue.isEmpty()){
+            if(!ColumnNameInput.getText().toString().isEmpty() && spinner.getSelectedItemPosition()!=0){
                 ColmnNm.setText("Column Name");ColumnType.setText("Column Type");
                 ColumnsName.add(ColumnNameInput.getText().toString());
-                ColumnsType.add(selectedValue);
+                ColumnsType.add(spinner.getSelectedItem().toString());
+                spinner.setSelection(0);
                 ColumnNameInput.setText("");
                 SetAdapter();
             }
@@ -104,8 +104,8 @@ public class FragmentToAddTable extends Fragment {
             return true;
         });
         CrtTbl.setOnClickListener(v->{
-            if(ColumnsName.size() > 0 && !TableName.getText().toString().isEmpty() && spinner.getSelectedItemPosition()!=0){
-                SqlCode(TableName.getText().toString(),ColumnsName,ColumnsType);
+            if(!ColumnsName.isEmpty() && !TableName.getText().toString().isEmpty()){
+                CreateTable(TableName.getText().toString(),ColumnsName,ColumnsType);
                 Toast.makeText(getActivity(), "Create Table Successful", Toast.LENGTH_SHORT).show();
                 CrtTbl.setEnabled(false);
             }else{
@@ -134,15 +134,16 @@ public class FragmentToAddTable extends Fragment {
         TableRowAdpt adpt = new TableRowAdpt(getActivity(),ColumnsName,ColumnsType);
         ListV.setAdapter(adpt);
     }
-    public void SqlCode(String TBNM,ArrayList<String>Clmn,ArrayList<String>ClmnTp){
-        String sql = "CREATE TABLE IF NOT EXISTS "+TBNM+" (";
-        for(int i=0;i<Clmn.size();i++) {
-            sql += Clmn.get(i) + " " + ClmnTp.get(i);
-            if (i != Clmn.size() - 1) {
-                sql += ",";
+    public void CreateTable(String TBNM,ArrayList<String>Clmn,ArrayList<String>ClmnTp){
+        StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS ");
+        sql.append(TBNM).append("(");
+        for(int i=0;i<Clmn.size();i++){
+            sql.append(Clmn.get(i)).append(" ").append(ClmnTp.get(i));
+            if(i!=Clmn.size()-1){
+                sql.append(",");
             }
-            sql += ")";
         }
-        db.CreateTable(sql);
+        sql.append(")");
+        ((MainActivity)getActivity()).CreateTable(sql);
     }
 }

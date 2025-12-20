@@ -37,10 +37,10 @@ public class FirstFrmg extends Fragment {
 
 //        ShowButton.setOnClickListener(v->{
 //            ((MainActivity)getActivity()).ChangeFragment(new FragmentToShowTable());
-//        });
-//        DelButton.setOnClickListener(v->{
-//            ((MainActivity)getActivity()).ChangeFragment(new FragmentToDeleteTable());
-//        });
+        //});
+        DelButton.setOnClickListener(v->{
+            ((MainActivity)getActivity()).ChangeFragment(new FragmentToDeleteTable());
+        });
         ShowAllTables.setOnClickListener(v->{
             ((MainActivity)getActivity()).ChangeFragment(new ShowTBL());
         });

@@ -26,7 +26,8 @@ public class DataBaseCon extends SQLiteOpenHelper {
 
     }
     public void DeleteTable(String tableName){
-
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(tableName,null,null);
     }
     public void UpdateTable(String tableName){
 
@@ -34,7 +35,9 @@ public class DataBaseCon extends SQLiteOpenHelper {
     public ArrayList<String>TablesName(){
         ArrayList<String>Tables = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT name FROM sqlite_master WHERE type='table'";
+        String sql = "SELECT name FROM sqlite_master " +
+                "WHERE type='table' AND name NOT LIKE 'sqlite_%' " +
+                "AND name != 'android_metadata'";
         Cursor cursor = db.rawQuery(sql,null);
         if(cursor.moveToFirst()){
             do{
@@ -58,7 +61,7 @@ public class DataBaseCon extends SQLiteOpenHelper {
         cursor.close();
         return Columns;
     }
-    public void CreateTable(String sql){
+    public void CreateTbl(String sql){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(sql);
     }
