@@ -162,6 +162,7 @@ public class FragmentToAddTable extends Fragment {
     void SetAdapter(){
         TableRowAdpt adpt = new TableRowAdpt(getActivity(),ColumnsName,ColumnsType);
         ListV.setAdapter(adpt);
+
     }
     public void CreateTable(String TBNM,ArrayList<String>Clmn,ArrayList<String>ClmnTp){
         StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS ");
