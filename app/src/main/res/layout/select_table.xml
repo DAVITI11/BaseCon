@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText android:id="@+id/TableNameInput" android:layout_width="match_parent" android:layout_height="50dp" android:hint="Enter Table Name"></EditText>
+
+    <Button android:id="@+id/SLBTN" android:layout_width="match_parent" android:layout_height="50dp" android:text="Select Table"></Button>
+
+    <Button android:id="@+id/GoToMainButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Go To Main Activity"></Button>
+
+    <TextView android:id="@+id/TableNm" android:layout_width="match_parent" android:layout_height="50dp"></TextView>
+
+    <ListView android:id="@+id/ListV" android:layout_width="match_parent" android:layout_height="match_parent"></ListView>
+
+</LinearLayout>

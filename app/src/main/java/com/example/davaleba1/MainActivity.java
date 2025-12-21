@@ -36,9 +36,16 @@ public class MainActivity extends AppCompatActivity {
     void DeleteTable(String tableName){
         db.DeleteTable(tableName);
     }
-    ArrayList<String>GetColumns(String tableName) {
+    public ArrayList<String>GetColumns(String tableName) {
         ArrayList<String> Columns = db.getColumns(tableName);
         return Columns;
     }
-
+    public ArrayList<String>SelectTable(String tableName){
+        ArrayList<String>Result = db.SelectTable(tableName);
+        return Result;
+    }
+    public ArrayList<String>getClmn(String tableName){
+        ArrayList<String>Columns = db.getClmn(tableName);
+        return Columns;
+    }
 }

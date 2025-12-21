@@ -22,7 +22,23 @@ public class DataBaseCon extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    public void SelectTable(String tableName){}
+    public ArrayList<String> SelectTable(String tableName){
+        ArrayList<String>Result = new ArrayList<>();
+        String sql = "SELECT * FROM " + tableName;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql,null);
+        if(cursor.moveToFirst()){
+            do{
+                for(int i=0;i<cursor.getColumnCount();i++){
+                    String Clmn = cursor.getColumnName(i);
+                    String Value = cursor.getString(i);
+                    Result.add(Clmn + " = " + Value);
+                }
+                Result.add("-----------------------");
+            }while(cursor.moveToNext());
+        }
+        return Result;
+    }
     public void DeleteTable(String tableName){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS "+tableName);
@@ -53,8 +69,26 @@ public class DataBaseCon extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sql,null);
         if(cursor.moveToFirst()){
             do{
-                Columns.add(cursor.getString(1));
+                String Name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String Type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+                Columns.add(Name+"   Type -->"+Type);
             }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return Columns;
+    }
+    public ArrayList<String>getClmn(String tableName){
+        ArrayList<String>Columns = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "PRAGMA table_info("+tableName+")";
+        Cursor cursor = db.rawQuery(sql,null);
+        if(cursor.moveToFirst()){
+            do{
+                String Name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String Type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+                Columns.add(Name);
+                Columns.add(Type);
+            } while(cursor.moveToNext());
         }
         cursor.close();
         return Columns;

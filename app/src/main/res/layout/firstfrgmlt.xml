@@ -11,6 +11,8 @@
 
     <Button android:id="@+id/ShowButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Select Table"></Button>
 
+    <Button android:id="@+id/InsertVals" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Insert Values"></Button>
+
     <Button android:id="@+id/DelButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Delete Table"></Button>
 
     <Button android:id="@+id/ShowAllTables" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Show All Tables"></Button>

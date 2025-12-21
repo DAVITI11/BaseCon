@@ -32,6 +32,7 @@ public class FragmentToAddTable extends Fragment {
 
     ArrayList<String> ColumnsName = new ArrayList<>();
     ArrayList<String> ColumnsType = new ArrayList<>();
+    ArrayList<String> ItemOfSpinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,18 +58,7 @@ public class FragmentToAddTable extends Fragment {
         Ref = view.findViewById(R.id.RefButton);
         spinner = view.findViewById(R.id.spinner);
 
-        ArrayList<String> ItemOfSpinner = new ArrayList<>();
-        ItemOfSpinner.add("Select Column Type");
-        ItemOfSpinner.add("INTEGER PRIMARY KEY AUTOINCREMENT");
-        ItemOfSpinner.add("TEXT");
-        ItemOfSpinner.add("INTEGER");
-        ItemOfSpinner.add("SMALLINT");
-        ItemOfSpinner.add("BOOLEAN");
-        ItemOfSpinner.add("REAL");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, ItemOfSpinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setSelection(0);
-        spinner.setAdapter(adapter);
+        CreateSpinner();
 
         GoToMain.setOnClickListener(v->{
             new MaterialAlertDialogBuilder(requireContext())
@@ -100,13 +90,13 @@ public class FragmentToAddTable extends Fragment {
                             .show();
                 }
                 else {
-                    if(spinner.getSelectedItem().toString().equals("INTEGER PRIMARY KEY AUTOINCREMENT")){
-                        ItemOfSpinner.remove("INTEGER PRIMARY KEY AUTOINCREMENT");
-                    }
                     ColmnNm.setText("Column Name");
                     ColumnType.setText("Column Type");
                     ColumnsName.add(ColumnNameInput.getText().toString());
                     ColumnsType.add(spinner.getSelectedItem().toString());
+                    if(spinner.getSelectedItem().toString().equals("INTEGER PRIMARY KEY AUTOINCREMENT")){
+                        ItemOfSpinner.remove("INTEGER PRIMARY KEY AUTOINCREMENT");
+                    }
                     spinner.setSelection(0);
                     ColumnNameInput.setText("");
                     SetAdapter();
@@ -133,6 +123,7 @@ public class FragmentToAddTable extends Fragment {
                 CreateTable(TableName.getText().toString(),ColumnsName,ColumnsType);
                 Toast.makeText(getActivity(), "Create Table Successful", Toast.LENGTH_SHORT).show();
                 ClearEverything();
+                CreateSpinner();
             }else{
                 Toast.makeText(getActivity(), "Fill All Fields", Toast.LENGTH_SHORT).show();
             }
@@ -174,5 +165,19 @@ public class FragmentToAddTable extends Fragment {
         }
         sql.append(")");
         ((MainActivity)getActivity()).CreateTable(sql);
+    }
+    public void CreateSpinner(){
+        ItemOfSpinner = new ArrayList<>();
+        ItemOfSpinner.add("Select Column Type");
+        ItemOfSpinner.add("INTEGER PRIMARY KEY AUTOINCREMENT");
+        ItemOfSpinner.add("TEXT");
+        ItemOfSpinner.add("INTEGER");
+        ItemOfSpinner.add("SMALLINT");
+        ItemOfSpinner.add("BOOLEAN");
+        ItemOfSpinner.add("REAL");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, ItemOfSpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setSelection(0);
+        spinner.setAdapter(adapter);
     }
 }
