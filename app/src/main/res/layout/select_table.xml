@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView android:text="Show Table Fragment" android:textSize="20dp" android:textAlignment="center" android:layout_width="match_parent" android:layout_height="50dp"></TextView>
+
     <EditText android:id="@+id/TableNameInput" android:layout_width="match_parent" android:layout_height="50dp" android:hint="Enter Table Name"></EditText>
 
     <Button android:id="@+id/SLBTN" android:layout_width="match_parent" android:layout_height="50dp" android:text="Select Table"></Button>

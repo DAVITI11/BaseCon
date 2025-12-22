@@ -43,7 +43,8 @@ public class FragmentToShowTable extends Fragment {
         SLBTN = view.findViewById(R.id.SLBTN);
         SLBTN.setOnClickListener(v->{
             if(!TableNameInput.getText().toString().isEmpty()){
-                ArrayList<String> Result = ((MainActivity)getActivity()).SelectTable(TableNameInput.getText().toString());
+                if(((MainActivity)getActivity()).CheckTable(TableNameInput.getText().toString())) {
+                    ArrayList<String> Result = ((MainActivity) getActivity()).SelectTable(TableNameInput.getText().toString());
 //                if(Result.isEmpty()){
 //                    new MaterialAlertDialogBuilder(requireContext())
 //                            .setTitle("Warning")
@@ -54,10 +55,11 @@ public class FragmentToShowTable extends Fragment {
 //                            .show();
 //                    return;
 //                }
-                ArrayAdapter<String> adpt = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, Result);
-                ListV.setAdapter(adpt);
-                TbNm.setText(TableNameInput.getText().toString());
-                TableNameInput.setText("");
+                    ArrayAdapter<String> adpt = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, Result);
+                    ListV.setAdapter(adpt);
+                    TbNm.setText(TableNameInput.getText().toString());
+                    TableNameInput.setText("");
+                }
             }
         });
         GoToMainButton.setOnClickListener(v->{

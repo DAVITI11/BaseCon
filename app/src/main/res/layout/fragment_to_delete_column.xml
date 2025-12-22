@@ -4,15 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView android:text="Insert Values Fragment" android:textSize="20dp" android:textAlignment="center" android:layout_width="match_parent" android:layout_height="50dp"></TextView>
-
     <EditText android:id="@+id/InptTbNm" android:layout_width="match_parent" android:layout_height="50dp" android:hint="Enter Table Name" android:textSize="20dp"></EditText>
 
-    <Button android:id="@+id/SLBTN" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Select Table"></Button>
+    <Button android:id="@+id/SLBTN" android:layout_width="match_parent" android:layout_height="50dp" android:text="Select Table"></Button>
 
-    <Button android:id="@+id/InsertVals" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Insert Values"></Button>
-
-    <Button android:id="@+id/GoToMainButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Go To Main Activity"></Button>
+    <Button android:id="@+id/GoToMainButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Go To Main Fragment"></Button>
 
     <TextView android:id="@+id/TbNm" android:layout_width="match_parent" android:layout_height="50dp"></TextView>
 

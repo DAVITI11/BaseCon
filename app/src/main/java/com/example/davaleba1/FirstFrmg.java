@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class FirstFrmg extends Fragment {
 
-    Button AddButton,ShowButton,DelButton,ShowAllTables,InsertVals;
+    Button AddButton,ShowButton,DelButton,ShowAllTables,InsertVals,DelCol;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.firstfrgmlt, container, false);
@@ -29,6 +29,7 @@ public class FirstFrmg extends Fragment {
         ShowButton = view.findViewById(R.id.ShowButton);
         DelButton = view.findViewById(R.id.DelButton);
         ShowAllTables = view.findViewById(R.id.ShowAllTables);
+        DelCol = view.findViewById(R.id.DelCol);
         InsertVals = view.findViewById(R.id.InsertVals);
 
         AddButton.setOnClickListener(v->{
@@ -46,6 +47,9 @@ public class FirstFrmg extends Fragment {
         });
         ShowAllTables.setOnClickListener(v->{
             ((MainActivity)getActivity()).ChangeFragment(new ShowTBL());
+        });
+        DelCol.setOnClickListener(v->{
+            ((MainActivity)getActivity()).ChangeFragment(new FragmentToDeleteColumn());
         });
     }
 }
